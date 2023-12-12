@@ -1,0 +1,28 @@
+[2023-12-12T13:17:48.342+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: my_dag.tsk_glue_job_trigger manual__2023-12-12T13:17:43.978407+00:00 [queued]>
+[2023-12-12T13:17:48.348+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: my_dag.tsk_glue_job_trigger manual__2023-12-12T13:17:43.978407+00:00 [queued]>
+[2023-12-12T13:17:48.348+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 3
+[2023-12-12T13:17:48.366+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): tsk_glue_job_trigger> on 2023-12-12 13:17:43.978407+00:00
+[2023-12-12T13:17:48.370+0000] {standard_task_runner.py:57} INFO - Started process 53270 to run task
+[2023-12-12T13:17:48.373+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'my_dag', 'tsk_glue_job_trigger', 'manual__2023-12-12T13:17:43.978407+00:00', '--job-id', '28', '--raw', '--subdir', 'DAGS_FOLDER/customer_chum_dag.py', '--cfg-path', '/tmp/tmp5nprtcp3']
+[2023-12-12T13:17:48.374+0000] {standard_task_runner.py:85} INFO - Job 28: Subtask tsk_glue_job_trigger
+[2023-12-12T13:17:48.489+0000] {task_command.py:416} INFO - Running <TaskInstance: my_dag.tsk_glue_job_trigger manual__2023-12-12T13:17:43.978407+00:00 [running]> on host ip-172-31-87-235.ec2.internal
+[2023-12-12T13:17:48.552+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='myemail@domain.com' AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='my_dag' AIRFLOW_CTX_TASK_ID='tsk_glue_job_trigger' AIRFLOW_CTX_EXECUTION_DATE='2023-12-12T13:17:43.978407+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-12-12T13:17:43.978407+00:00'
+[2023-12-12T13:17:48.556+0000] {base.py:73} INFO - Using connection ID 'aws_s3_conn' for task execution.
+[2023-12-12T13:17:48.557+0000] {connection_wrapper.py:378} INFO - AWS Connection (conn_id='aws_s3_conn', conn_type='aws') credentials retrieved from login and password.
+[2023-12-12T13:17:48.831+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/ubuntu/customer_churn_youtube_venv/lib/python3.10/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/ubuntu/customer_churn_youtube_venv/lib/python3.10/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/home/ubuntu/airflow/dags/customer_chum_dag.py", line 16, in glue_job_s3_redshift_transfer
+    client.start_job_run(
+  File "/home/ubuntu/customer_churn_youtube_venv/lib/python3.10/site-packages/botocore/client.py", line 553, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "/home/ubuntu/customer_churn_youtube_venv/lib/python3.10/site-packages/botocore/client.py", line 1009, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.ConcurrentRunsExceededException: An error occurred (ConcurrentRunsExceededException) when calling the StartJobRun operation: Concurrent runs exceeded for s3-upload-to-redshift-gluejob
+[2023-12-12T13:17:48.836+0000] {taskinstance.py:1400} INFO - Marking task as UP_FOR_RETRY. dag_id=my_dag, task_id=tsk_glue_job_trigger, execution_date=20231212T131743, start_date=20231212T131748, end_date=20231212T131748
+[2023-12-12T13:17:48.853+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 28 for task tsk_glue_job_trigger (An error occurred (ConcurrentRunsExceededException) when calling the StartJobRun operation: Concurrent runs exceeded for s3-upload-to-redshift-gluejob; 53270)
+[2023-12-12T13:17:48.866+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-12-12T13:17:48.958+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
